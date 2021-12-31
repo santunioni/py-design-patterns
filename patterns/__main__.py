@@ -1,4 +1,5 @@
 from patterns import behavioral, creational, structural
+from patterns.utils.menu import attempt_match
 
 types = {"creational": creational, "behavioral": behavioral, "structural": structural}
 
@@ -8,7 +9,8 @@ def main():
     while True:
         pattern_type: str = input(f"Which type? ({', '.join(types.keys())}): ")
         try:
-            types[pattern_type].main()
+            package = attempt_match(pattern_type, types)
+            package.main()
         except KeyError:
             print(f"Type {pattern_type} not found. Finishing software.")
             break

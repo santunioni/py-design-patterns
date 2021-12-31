@@ -8,7 +8,7 @@ patterns = {
 
 
 def main():
-    menu(__name__, patterns)
+    menu(patterns)
 
 
 if __name__ == "__main__":
