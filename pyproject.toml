@@ -1,0 +1,25 @@
+[tool.commitizen]
+version = "0.1.0"
+tag_format = "$major.$minor.$patch$prerelease"
+update_changelog_on_bump = true
+annotated_tag = true
+check_consistency = true
+version_files = [
+    "pyproject.toml"
+]
+
+[tool.poetry]
+name = "design-patterns"
+version = "0.1.0"
+description = ""
+authors = ["Vinícius Vargas <vinicius.vargas@catskillet.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.dev-dependencies]
+black = {version = "^21.12b0", extras = ["jupyter"]}
+mypy = "^0.930"
+pylint = "^2.12.2"
+pre-commit = "^2.16.0"
+commitizen = "^2.20.3"
