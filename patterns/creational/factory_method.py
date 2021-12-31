@@ -3,7 +3,7 @@ Factory Method provides an interface for creating objects in a superclass,
 but allows subclasses to alter the type of objects that will be created.
 """
 from abc import ABC, abstractmethod
-from typing import Mapping, Type
+from typing import Callable, Mapping, MutableMapping
 
 
 class Transport(ABC):
@@ -35,6 +35,9 @@ class Logistics(ABC):
     def __str__(self):
         return "Logistics app"
 
+    def __del__(self):
+        print(f"Exiting {self.__class__.__name__} app.")
+
     @abstractmethod
     def create_transport(self) -> Transport:
         """
@@ -62,27 +65,31 @@ class SeaLogistics(Logistics):
         return Ship()
 
 
-class Application:
-
-    apps: Mapping[str, Type[Logistics]] = {"land": RoadLogistics, "sea": SeaLogistics}
-
-    @classmethod
-    def main(cls):
-        """
-        The client code chooses the delivery method, event not knowing
-        the products types (the Transport subclasses).
-        """
-        while True:
-            method = input(
-                f"\nDeliever by? (options are: {', '.join(cls.apps.keys())})\n"
-            )
-            try:
-                app = cls.apps[method]()
-                app.plan_delivery()
-            except KeyError:
-                print(f"Unnown delivery method: {method}")
-                break
+def main():
+    """
+    The client code chooses the delivery method, event not knowing
+    the products types (the Transport subclasses).
+    """
+    factories: Mapping[str, Callable[[], Logistics]] = {
+        "land": RoadLogistics,
+        "sea": SeaLogistics,
+    }
+    apps: MutableMapping[str, Logistics] = {}
+    while True:
+        print()
+        method: str = input(
+            f"Deliever by? (options are: {', '.join(factories.keys())})\n"
+        )
+        try:
+            app = apps.get(method)
+            if app is None:
+                app = factories[method]()
+                apps[method] = app
+            app.plan_delivery()
+        except KeyError:
+            print(f"Unnown delivery method: {method}")
+            break
 
 
 if __name__ == "__main__":
-    Application.main()
+    main()
