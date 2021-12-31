@@ -1,15 +1,15 @@
-from patterns.creational import abstract_factory, factory_method
-from patterns.utils.menu import menu
-
-patterns = {
-    "abstract_factory": abstract_factory,
-    "factory_method": factory_method,
-}
+from patterns.application import Application
+from patterns.creational.abstract_factory import AbstractFactoryApplication
+from patterns.creational.factory_method import FactoryMethodApplication
 
 
-def main():
-    menu(patterns)
+class CreationalPatterns(Application):
+
+    patterns = {
+        "abstract_factory": AbstractFactoryApplication,
+        "factory_method": FactoryMethodApplication,
+    }
 
 
 if __name__ == "__main__":
-    main()
+    CreationalPatterns().main()

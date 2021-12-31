@@ -1,11 +1,9 @@
-from patterns.utils.menu import menu
-
-patterns = {}
+from patterns.application import Application
 
 
-def main():
-    menu(patterns)
+class BehavioralPatterns(Application):
+    patterns = {}
 
 
 if __name__ == "__main__":
-    main()
+    BehavioralPatterns().main()

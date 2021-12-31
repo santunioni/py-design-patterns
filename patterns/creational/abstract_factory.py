@@ -5,7 +5,9 @@ objects without specifying their concrete classes.
 link: https://refactoring.guru/design-patterns/abstract-factory
 """
 from abc import ABC, abstractmethod
-from typing import Callable, Mapping, MutableMapping
+from typing import Callable, Mapping
+
+from patterns.application import Application
 
 
 class Chair(ABC):
@@ -102,28 +104,30 @@ class ModernFurnitureFactory(FurnitureFactory):
         return ModernSofa()
 
 
-def main():
-    """
-    The client code chooses what factory it wants to instantiate, event not knowing
-    the products types beforehand(the Transport subclasses). The factory type is chosen
-    usually at initialization stage.
-    """
-    factories: Mapping[str, Callable[[], FurnitureFactory]] = {
+class AbstractFactoryApplication(Application):
+    __factories: Mapping[str, Callable[[], FurnitureFactory]] = {
         "victorian": VictorianFurnitureFactory,
         "modern": ModernFurnitureFactory,
     }
-    apps: MutableMapping[str, FurnitureFactory] = {}
-    while True:
-        print()
-        method: str = input(
-            f"What category of furniture? (options are: {', '.join(factories.keys())}): "
-        )
-        try:
-            app = apps.get(method)
-            if app is None:
-                app = factories[method]()
-                apps[method] = app
-            app.build()
-        except KeyError:
-            print(f"Unnown delivery method: {method}")
-            break
+
+    def main(self):
+        """
+        The client code chooses what factory it wants to instantiate, event not knowing
+        the products types beforehand(the Sofa and Chair subclasses). The factory type is chosen
+        usually at initialization stage.
+        """
+        while True:
+            print()
+            method: str = input(
+                f"What category of furniture? (options are: {', '.join(self.__factories.keys())}): "
+            )
+            try:
+                app = self.__factories[method]()
+                app.build()
+            except KeyError:
+                print(f"Unnown delivery method: {method}")
+                break
+
+
+if __name__ == "__main__":
+    AbstractFactoryApplication().main()

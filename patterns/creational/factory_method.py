@@ -5,7 +5,9 @@ but allows subclasses to alter the type of objects that will be created.
 link: https://refactoring.guru/design-patterns/factory-method
 """
 from abc import ABC, abstractmethod
-from typing import Callable, Mapping, MutableMapping
+from typing import Callable, Mapping
+
+from patterns.application import Application
 
 
 class Transport(ABC):
@@ -67,31 +69,30 @@ class SeaLogistics(Logistics):
         return Ship()
 
 
-def main():
-    """
-    The client code chooses the delivery method, event not knowing
-    the products types (the Transport subclasses).
-    """
-    factories: Mapping[str, Callable[[], Logistics]] = {
+class FactoryMethodApplication(Application):
+
+    __factories: Mapping[str, Callable[[], Logistics]] = {
         "land": RoadLogistics,
         "sea": SeaLogistics,
     }
-    apps: MutableMapping[str, Logistics] = {}
-    while True:
-        print()
-        method: str = input(
-            f"Deliever by? (options are: {', '.join(factories.keys())}): "
-        )
-        try:
-            app = apps.get(method)
-            if app is None:
-                app = factories[method]()
-                apps[method] = app
-            app.plan_delivery()
-        except KeyError:
-            print(f"Unnown delivery method: {method}")
-            break
+
+    def main(self):
+        """
+        The client code chooses the delivery method, but is not required to depend on concrete
+        classes of the product types (the Transport subclasses).
+        """
+        while True:
+            print()
+            method: str = input(
+                f"Deliever by? (options are: {', '.join(self.__factories.keys())}): "
+            )
+            try:
+                app = self.__factories[method]()
+                app.plan_delivery()
+            except KeyError:
+                print(f"Unnown delivery method: {method}")
+                break
 
 
 if __name__ == "__main__":
-    main()
+    FactoryMethodApplication().main()
