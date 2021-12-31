@@ -1,6 +1,8 @@
 """
 Factory Method provides an interface for creating objects in a superclass,
 but allows subclasses to alter the type of objects that will be created.
+
+link: https://refactoring.guru/design-patterns/factory-method
 """
 from abc import ABC, abstractmethod
 from typing import Callable, Mapping, MutableMapping
