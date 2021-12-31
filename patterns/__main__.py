@@ -11,7 +11,7 @@ def main():
         try:
             package = attempt_match(pattern_type, types)
             package.main()
-        except KeyError:
+        except (KeyError, IndexError):
             print(f"Type {pattern_type} not found. Finishing software.")
             break
 

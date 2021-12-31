@@ -80,7 +80,7 @@ def main():
     while True:
         print()
         method: str = input(
-            f"Deliever by? (options are: {', '.join(factories.keys())})\n"
+            f"Deliever by? (options are: {', '.join(factories.keys())}): "
         )
         try:
             app = apps.get(method)

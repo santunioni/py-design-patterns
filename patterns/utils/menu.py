@@ -19,7 +19,7 @@ def menu(patterns: Mapping[str, Any]):
             print("-" * 120)
             module.main()
             print("-" * 120)
-        except KeyError:
+        except (KeyError, IndexError):
             print(f"Pattern {pattern} not found.")
             print()
             break
