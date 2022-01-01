@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 from abc import ABC
-from typing import Callable, Mapping, Optional, TypeVar
+from typing import Callable, Mapping, TypeVar
 
-Product = TypeVar("Product")
+Type = TypeVar("Type")
 
 
-def attempt_match(name: str, patterns: Mapping[str, Product]) -> Optional[Product]:
+def attempt_match(name: str, patterns: Mapping[str, Type]) -> Type:
     module = patterns.get(name)
     if module is None:
         possible_keys = list(filter(lambda k: name in k, patterns.keys()))
