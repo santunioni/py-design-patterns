@@ -8,9 +8,9 @@ Patterns already implemented:
 
 **Creational:**
 provide various object creation mechanisms, which increase flexibility and reuse of existing code.
-- [x] Factory Method
-- [x] Abstract Factory
-- [x] Builder
+- [x] [Factory Method](patterns/creational/factory_method.py)
+- [x] [Abstract Factory](patterns/creational/abstract_factory.py)
+- [x] [Builder](patterns/creational/builder.py)
 - [ ] Prototype
 - [ ] Singleton
 
