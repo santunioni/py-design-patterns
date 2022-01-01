@@ -9,8 +9,8 @@ Patterns already implemented:
 **Creational:**
 provide various object creation mechanisms, which increase flexibility and reuse of existing code.
 - [x] Factory Method
-- [ ] Abstract Factory
-- [ ] Builder
+- [x] Abstract Factory
+- [x] Builder
 - [ ] Prototype
 - [ ] Singleton
 
