@@ -12,7 +12,7 @@ provide various object creation mechanisms, which increase flexibility and reuse
 - [x] [Abstract Factory](patterns/creational/abstract_factory.py)
 - [x] [Builder](patterns/creational/builder.py)
 - [ ] Prototype
-- [ ] Singleton
+- [x] [Singleton](patterns/creational/singleton.py) (not in the CLI)
 
 **Structural:**:
 explain how to assemble objects and classes into larger structures while keeping these structures flexible and efficient.
